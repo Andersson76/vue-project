@@ -67,5 +67,45 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+import axios from "axios";
 
+const apiKey = "4c9b96648amsh2dc6631f46e1410p14cef6jsn330d2b37413c";
+const location = ref("");
+const placeName = ref("");
+const currentTemperature = ref("");
+const currentWeatherIcon = ref("");
+const forecastDays = ref([]);
+
+const getWeather = async () => {
+  try {
+    const response = await axios.get(
+      `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${location.value}&days=7`,
+      {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key": apiKey,
+          "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+        },
+      }
+    );
+
+    const data = response.data;
+
+    placeName.value = data.location.name;
+    currentTemperature.value = data.current.temp_c;
+    currentWeatherIcon.value = data.current.condition.icon;
+
+    forecastDays.value = data.forecast.forecastday.map((day) => ({
+      date: day.date,
+      maxTemp: day.day.maxtemp_c,
+      minTemp: day.day.mintemp_c,
+      condition: day.day.condition.text,
+      iconUrl: day.day.condition.icon,
+    }));
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    // Display an error message to the user if needed
+  }
+};
 </script>
