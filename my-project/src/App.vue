@@ -1,11 +1,7 @@
-<script setup>
-import EnterButton from './components/EnterButton.vue';
-import Weather from './components/Weather.vue';
-</script>
-
 <template>
-
-<EnterButton />
-<Weather />
-
+  <router-view />
 </template>
+
+<script setup>
+import { useRoute } from "vue-router";
+</script>
