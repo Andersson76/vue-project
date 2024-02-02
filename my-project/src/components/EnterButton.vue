@@ -8,7 +8,7 @@
       Press here to Continue
     </button>
   </router-link>
-  <p class="text-indigo-600 mt-4 underline">
+  <p class="text-indigo-600 mt-4 shadow-lg">
     Welcome in and check your local weather and other cool stuff
   </p>
 </template>
