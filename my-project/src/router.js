@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import EnterButton from "./components/EnterButton.vue";
+import Home from "./components/Home.vue";
 import Weather from "./components/Weather.vue";
 
 const routes = [
-  { path: "/", component: EnterButton },
+  { path: "/", component: Home },
   { path: "/weather", component: Weather },
 ];
 
