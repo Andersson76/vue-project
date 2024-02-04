@@ -69,7 +69,7 @@
 
 <script setup>
 import AudioPlayer from "./AudioPlayer.vue";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import axios from "axios";
 
 const apiKey = "4c9b96648amsh2dc6631f46e1410p14cef6jsn330d2b37413c";
