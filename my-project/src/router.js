@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "./components/Home.vue";
-import Weather from "./components/Weather.vue";
+
+import Home from "./views/Home.vue";
+import Weather from "./views/Weather.vue";
 
 const routes = [
-  { path: "/", component: Home },
-  { path: "/weather", component: Weather },
+  { component: Home, path: "/" },
+  { component: Weather, path: "/weather" },
 ];
 
 const router = createRouter({

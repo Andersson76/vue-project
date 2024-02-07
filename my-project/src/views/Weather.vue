@@ -1,8 +1,8 @@
 <template>
-  <AudioPlayer class="mb-12" :audioElement="audioElement" />
   <div>
+    <AudioPlayer />
     <h2 class="text-2xl font-bold">The Weather Channel</h2>
-    <p class="text-gray-600">Your daily weather supplier</p>
+    <p class="text-indigo-600">Your daily weather supplier</p>
 
     <div class="mt-4">
       <form @submit.prevent="getWeather">
@@ -64,13 +64,16 @@
         />
       </li>
     </ul>
+    <router-view />
   </div>
 </template>
 
 <script setup>
-import AudioPlayer from "./AudioPlayer.vue";
-import { ref } from "vue";
+import AudioPlayer from "../components/AudioPlayer.vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
+
+/* const audioElement = ref(null); */
 
 const apiKey = "4c9b96648amsh2dc6631f46e1410p14cef6jsn330d2b37413c";
 const location = ref("");
@@ -110,4 +113,9 @@ const getWeather = async () => {
     // Display an error message to the user if needed
   }
 };
+
+/* onMounted(() => {
+  audioElement.value = new Audio("/chillDub.mp3");
+  console.log("audioElement value:", audioElement.value);
+}); */
 </script>

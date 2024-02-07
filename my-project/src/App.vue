@@ -5,10 +5,11 @@
       <router-link to="/weather" class="text-white">Weather</router-link>
     </nav>
   </div>
-  <router-view class="mt-16" />
+  <main>
+    <router-view />
+  </main>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
-const router = useRouter();
 </script>
