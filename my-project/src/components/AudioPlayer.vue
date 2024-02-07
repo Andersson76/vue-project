@@ -9,18 +9,19 @@
       {{ isAudioPlaying ? "Pause Audio" : "Play Audio" }}
     </button>
 
-    <p class="mt-2">{{ audioStatusMessage }}</p>
+    <p class="mb-8 mt-4">{{ audioStatusMessage }}</p>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 
-const audioElement = ref(null);
+const audioElement = ref(new Audio("./chillDub.mp3"));
 const isAudioPlaying = ref(false);
 const audioStatusMessage = ref("Audio is stopped");
 
 const toggleAudio = () => {
+  console.log("toggleAudio function is called");
   if (audioElement.value) {
     if (isAudioPlaying.value) {
       audioElement.value.pause();
@@ -33,7 +34,6 @@ const toggleAudio = () => {
 };
 
 onMounted(() => {
-  // Kontrollera att audioElement har ett värde innan du försöker lägga till händelselyssnare
   if (audioElement.value) {
     audioElement.value.addEventListener("playing", () => {
       audioStatusMessage.value = "Audio is Playing";
