@@ -8,19 +8,18 @@
       Press here to Continue
     </button>
   </router-link>
-  <p class="text-indigo-600 mt-4 shadow-lg">
+  <p class="text-indigo-600 mt-4">
     Welcome in and check your local weather and other cool stuff
   </p>
 </template>
 
 <script setup>
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 const navigateToWeather = () => {
   const router = useRouter();
-  const route = useRoute();
 
-  if (route.path !== "/weather") {
+  if (router && router.currentRoute.value.path !== "/weather") {
     //Navigera endast om du inte redan är på Weather sidan
     router.push("/weather");
   }
