@@ -64,23 +64,25 @@
         />
       </li>
     </ul>
+    <p class="text-lg m-2">
+      <strong>Average Temperature Today: </strong>{{ averageTemperature }}˚C
+    </p>
     <router-view />
   </div>
 </template>
 
 <script setup>
 import AudioPlayer from "../components/AudioPlayer.vue";
-import { ref, onMounted } from "vue";
+import { ref, computed } from "vue";
 import axios from "axios";
 
-/* const audioElement = ref(null); */
+const forecastDays = ref([]);
 
 const apiKey = "4c9b96648amsh2dc6631f46e1410p14cef6jsn330d2b37413c";
 const location = ref("");
 const placeName = ref("");
 const currentTemperature = ref("");
 const currentWeatherIcon = ref("");
-const forecastDays = ref([]);
 
 const getWeather = async () => {
   try {
@@ -110,12 +112,17 @@ const getWeather = async () => {
     }));
   } catch (error) {
     console.error("Error fetching weather data:", error);
-    // Display an error message to the user if needed
   }
 };
 
-/* onMounted(() => {
-  audioElement.value = new Audio("/chillDub.mp3");
-  console.log("audioElement value:", audioElement.value);
-}); */
+// Beräknad egenskap för att beräkna genomsnittstemperaturen
+const averageTemperature = computed(() => {
+  if (forecastDays.value.length === 0) return 0;
+
+  const totalTemperature = forecastDays.value.reduce(
+    (acc, day) => acc + (day.maxTemp + day.minTemp) / 2,
+    0
+  );
+  return totalTemperature / forecastDays.value.length;
+});
 </script>
