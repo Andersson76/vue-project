@@ -57,11 +57,7 @@
         </p>
       </li>
       <li>
-        <img
-          :src="currentWeatherIcon"
-          alt="Current weather icon"
-          class="w-12 h-12"
-        />
+        <img :src="currentWeatherIcon" alt="Weather icon" class="w-12 h-12" />
       </li>
     </ul>
     <p class="text-lg m-2">
@@ -73,7 +69,7 @@
 
 <script setup>
 import AudioPlayer from "../components/AudioPlayer.vue";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import axios from "axios";
 
 const forecastDays = ref([]);
@@ -103,13 +99,15 @@ const getWeather = async () => {
     currentTemperature.value = data.current.temp_c;
     currentWeatherIcon.value = data.current.condition.icon;
 
-    forecastDays.value = data.forecast.forecastday.map((day) => ({
-      date: day.date,
-      maxTemp: day.day.maxtemp_c,
-      minTemp: day.day.mintemp_c,
-      condition: day.day.condition.text,
-      iconUrl: day.day.condition.icon,
-    }));
+    forecastDays.value.push(
+      ...data.forecast.forecastday.map((day) => ({
+        date: day.date,
+        maxTemp: day.day.maxtemp_c,
+        minTemp: day.day.mintemp_c,
+        condition: day.day.condition.text,
+        iconUrl: day.day.condition.icon,
+      }))
+    );
   } catch (error) {
     console.error("Error fetching weather data:", error);
   }
@@ -124,5 +122,10 @@ const averageTemperature = computed(() => {
     0
   );
   return totalTemperature / forecastDays.value.length;
+});
+
+watch(location, () => {
+  forecastDays.value = [];
+  getWeather();
 });
 </script>
