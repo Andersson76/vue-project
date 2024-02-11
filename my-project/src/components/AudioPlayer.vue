@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center mt-8">
+  <div class="text-center mt-16">
     <h2 class="text-2xl font-bold">Audio Player</h2>
 
     <button
