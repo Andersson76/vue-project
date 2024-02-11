@@ -1,1 +1,1 @@
-# vue-project
+# vue-school-project.vercel.app
