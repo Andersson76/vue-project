@@ -4,6 +4,7 @@
 
     <button
       @click="toggleAudio"
+      :class="{ 'button-clicked': isAudioClicked }"
       class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
     >
       {{ isAudioPlaying ? "Pause Audio" : "Play Audio" }}
@@ -18,10 +19,10 @@ import { ref, onMounted } from "vue";
 
 const audioElement = ref(new Audio("./chillDub.mp3"));
 const isAudioPlaying = ref(false);
+const isAudioClicked = ref(false);
 const audioStatusMessage = ref("Audio is stopped");
 
 const toggleAudio = () => {
-  console.log("toggleAudio function is called");
   if (audioElement.value) {
     if (isAudioPlaying.value) {
       audioElement.value.pause();
@@ -30,6 +31,8 @@ const toggleAudio = () => {
       audioElement.value.play();
     }
     isAudioPlaying.value = !isAudioPlaying.value;
+    isAudioClicked.value = true;
+    emit("audio-status-changed", isAudioPlaying.value);
   }
 };
 
@@ -48,4 +51,10 @@ onMounted(() => {
     });
   }
 });
+const emit = defineEmits(["audio-status-changed"]);
+
+const handleAudioStatusChange = (status) => {
+  isAudioPlaying.value = status;
+  localStorage.setItem("audioStatus", status ? "playing" : "paused");
+};
 </script>
