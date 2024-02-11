@@ -61,7 +61,8 @@
       </li>
     </ul>
     <p class="text-lg m-2">
-      <strong>Average Temperature Today: </strong>{{ averageTemperature }}˚C
+      <strong>Average Temperature Today: </strong
+      >{{ formattedAverageTemperature }}˚C
     </p>
     <router-view />
   </div>
@@ -73,12 +74,12 @@ import { ref, computed, watch } from "vue";
 import axios from "axios";
 
 const forecastDays = ref([]);
-
-const apiKey = "4c9b96648amsh2dc6631f46e1410p14cef6jsn330d2b37413c";
 const location = ref("");
 const placeName = ref("");
 const currentTemperature = ref("");
 const currentWeatherIcon = ref("");
+
+const apiKey = "4c9b96648amsh2dc6631f46e1410p14cef6jsn330d2b37413c";
 
 const getWeather = async () => {
   try {
@@ -122,6 +123,10 @@ const averageTemperature = computed(() => {
     0
   );
   return totalTemperature / forecastDays.value.length;
+});
+
+const formattedAverageTemperature = computed(() => {
+  return averageTemperature.value.toFixed(1);
 });
 
 watch(location, () => {
