@@ -7,14 +7,15 @@
     >
       Press here to Continue
     </button>
+    <WelcomeMessage
+      message="Welcome in and check your local weather and other cool stuff"
+    />
   </router-link>
-  <p class="text-indigo-600 mt-4">
-    Welcome in and check your local weather and other cool stuff
-  </p>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
+import WelcomeMessage from "../components/WelcomeMessage.vue";
 
 const navigateToWeather = () => {
   const router = useRouter();

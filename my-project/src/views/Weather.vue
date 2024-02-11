@@ -1,6 +1,7 @@
 <template>
   <div>
     <AudioPlayer />
+
     <h2 class="text-2xl font-bold">The Weather Channel</h2>
     <p class="text-indigo-600">Your daily weather supplier</p>
 
@@ -50,9 +51,9 @@
 
     <ul id="weather" class="mt-4 flex justify-between items-center">
       <li>
-        <p class="text-lg">
+        <p class="text-lg m-4">
           <strong>Temperature Now: </strong>
-          <span class="font-bold">{{ currentTemperature }}</span>
+          <span>{{ currentTemperature }}</span>
           &deg;
         </p>
       </li>
@@ -61,8 +62,9 @@
       </li>
     </ul>
     <p class="text-lg m-2">
-      <strong>Average Temperature Today: </strong
-      >{{ formattedAverageTemperature }}˚C
+      <strong>Average Temperature Today: </strong>
+      <span>{{ formattedAverageTemperature }}</span>
+      &deg;
     </p>
     <router-view />
   </div>
@@ -97,7 +99,7 @@ const getWeather = async () => {
     const data = response.data;
 
     placeName.value = data.location.name;
-    currentTemperature.value = data.current.temp_c;
+    currentTemperature.value = data.current.temp_c.toFixed(1);
     currentWeatherIcon.value = data.current.condition.icon;
 
     forecastDays.value.push(
