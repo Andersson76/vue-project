@@ -18,11 +18,15 @@ import { useRouter } from "vue-router";
 import WelcomeMessage from "../components/WelcomeMessage.vue";
 
 const navigateToWeather = () => {
-  const router = useRouter();
+  try {
+    const router = useRouter();
 
-  if (router && router.currentRoute.value.path !== "/weather") {
-    //Navigera endast om du inte redan är på Weather sidan
-    router.push("/weather");
+    if (router && router.currentRoute.value.path !== "/weather") {
+      //Navigera endast om du inte redan är på Weather sidan
+      router.push("/weather");
+    }
+  } catch (error) {
+    console.error("Error navigating to weather: ", error);
   }
 };
 </script>

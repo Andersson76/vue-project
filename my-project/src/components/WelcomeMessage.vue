@@ -10,7 +10,9 @@
 import { defineProps } from "vue";
 
 const props = defineProps({
-  message: String,
-  required: true,
+  message: {
+    type: String,
+    required: true,
+  },
 });
 </script>

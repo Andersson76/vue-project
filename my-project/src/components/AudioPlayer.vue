@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, defineEmits } from "vue";
 
 const audioElement = ref(new Audio("./chillDub.mp3"));
 const isAudioPlaying = ref(false);
@@ -23,38 +23,50 @@ const isAudioClicked = ref(false);
 const audioStatusMessage = ref("Audio is stopped");
 
 const toggleAudio = () => {
-  if (audioElement.value) {
-    if (isAudioPlaying.value) {
-      audioElement.value.pause();
-      audioElement.value.currentTime = 0;
-    } else {
-      audioElement.value.play();
+  try {
+    if (audioElement.value) {
+      if (isAudioPlaying.value) {
+        audioElement.value.pause();
+      } else {
+        audioElement.value.play();
+      }
+      isAudioPlaying.value = !isAudioPlaying.value;
+      isAudioClicked.value = true;
+      emit("audio-status-changed", isAudioPlaying.value);
     }
-    isAudioPlaying.value = !isAudioPlaying.value;
-    isAudioClicked.value = true;
-    emit("audio-status-changed", isAudioPlaying.value);
+  } catch (error) {
+    console.error("Error toggling audio: ", error);
   }
 };
 
 onMounted(() => {
-  if (audioElement.value) {
-    audioElement.value.addEventListener("playing", () => {
-      audioStatusMessage.value = "Audio is Playing";
-    });
+  try {
+    if (audioElement.value) {
+      audioElement.value.addEventListener("playing", () => {
+        audioStatusMessage.value = "Audio is Playing";
+      });
 
-    audioElement.value.addEventListener("pause", () => {
-      audioStatusMessage.value = "Audio is Paused";
-    });
+      audioElement.value.addEventListener("pause", () => {
+        audioStatusMessage.value = "Audio is Paused";
+      });
 
-    audioElement.value.addEventListener("ended", () => {
-      audioStatusMessage.value = "Audio is Ended";
-    });
+      audioElement.value.addEventListener("ended", () => {
+        audioStatusMessage.value = "Audio is Ended";
+      });
+    }
+  } catch (error) {
+    console.error("Error setting up audio event listeners: ", error);
   }
 });
+
 const emit = defineEmits(["audio-status-changed"]);
 
 const handleAudioStatusChange = (status) => {
-  isAudioPlaying.value = status;
-  localStorage.setItem("audioStatus", status ? "playing" : "paused");
+  try {
+    isAudioPlaying.value = status;
+    localStorage.setItem("audioStatus", status ? "playing" : "paused");
+  } catch (error) {
+    console.error("Error handling audio status change: ", error);
+  }
 };
 </script>
