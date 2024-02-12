@@ -13,15 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
@@ -33,10 +24,7 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -56,6 +44,7 @@ h1 {
     background-color: #f9f9f9;
   }
 }
+
 @keyframes buttonClickAnimation {
   0% {
     transform: scale(1);
