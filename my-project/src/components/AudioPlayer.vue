@@ -17,7 +17,7 @@
 <script setup>
 import { ref, onMounted, defineEmits } from "vue";
 
-const audioElement = ref(new Audio("./chillDub.mp3"));
+const audioElement = ref(new Audio("/chillDub.mp3"));
 const isAudioPlaying = ref(false);
 const isAudioClicked = ref(false);
 const audioStatusMessage = ref("Audio is stopped");
