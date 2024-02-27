@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AudioPlayer />
+    <AudioPlayer audioFilePath="/chillDub.mp3" />
     <Forecast />
     <router-view />
   </div>
